@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 Jul 2018 pada 03.15
+-- Generation Time: 01 Agu 2018 pada 03.49
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -29,15 +29,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
   `nama_admin` varchar(30) NOT NULL,
-  `pass_admin` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `pass_admin` varchar(100) NOT NULL,
+  `level` enum('admin','manager') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `nama_admin`, `pass_admin`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `pass_admin`, `level`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
+(2, 'direktur', '4fbfd324f5ffcdff5dbf6f019b02eca8', 'manager');
 
 -- --------------------------------------------------------
 
@@ -77,6 +79,31 @@ CREATE TABLE `mapel` (
 
 INSERT INTO `mapel` (`mapel_id`, `mapel`, `kelas_id`) VALUES
 (2, 'Bahasa Indonesia', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `id_siswa` int(11) NOT NULL,
+  `nama_siswa` varchar(30) NOT NULL,
+  `alamat` text NOT NULL,
+  `gender` enum('L','P') NOT NULL,
+  `nama_ortu` varchar(30) NOT NULL,
+  `no_hp` varchar(18) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `siswa`
+--
+
+INSERT INTO `siswa` (`id_siswa`, `nama_siswa`, `alamat`, `gender`, `nama_ortu`, `no_hp`, `email`, `username`, `password`) VALUES
+(1, 'Toni Siswa', 'JL. Mujamuju', 'L', 'Orang Tua Toni', '047466398', 'toni@orangtuanya.com', 'siswa', 'bcd724d15cde8c47650fda962968f102');
 
 -- --------------------------------------------------------
 
@@ -124,6 +151,12 @@ ALTER TABLE `mapel`
   ADD PRIMARY KEY (`mapel_id`);
 
 --
+-- Indexes for table `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id_siswa`);
+
+--
 -- Indexes for table `tentor`
 --
 ALTER TABLE `tentor`
@@ -137,7 +170,7 @@ ALTER TABLE `tentor`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -148,6 +181,11 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `mapel`
   MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `siswa`
+--
+ALTER TABLE `siswa`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tentor`
 --
