@@ -44,10 +44,9 @@ if (isset($_POST["login"])) {
 	  elseif(empty($_POST['password'])){
 		$error=alert('error','login salah');
 	  }else{
-	
 		$username=$_POST['username'];
 		$password=md5($_POST['password']);
-	echo	$query="select * from admin where nama_admin = '".$username."' and pass_admin='".$password."' ";
+		$query="select * from admin where nama_admin = '".$username."' and pass_admin='".$password."' ";
 		
 		$login=$system->db->execute($query);
 		if($login->recordCount()>0){
@@ -55,14 +54,34 @@ if (isset($_POST["login"])) {
 			/* if($user['bagian'] == 'manager'){ */
 				$_SESSION['id_admin']=$user['id_admin'];
 				$_SESSION['username']=$user['nama_admin'];
+				$_SESSION['level']=$user['level'];
 				header("Location:index_admin.html");
 		}else{
-			$error=alert('error','login salah');
+			$query="select * from siswa where username= '".$username."' and password='".$password."' ";
+			$login=$system->db->execute($query);
+			if($login->recordCount()>0){
+				$user=$system->db->getRow($query);
+				$_SESSION['id_admin']=$user['id_siswa'];
+				$_SESSION['username']=$user['username'];
+				$_SESSION['level']='siswa';
+				header("Location:index_admin.html");
+
+			}else{
+				$query="select * from tentor where tentor_username= '".$username."' and tentor_password='".$password."' ";
+				$login=$system->db->execute($query);
+				if($login->recordCount()>0){
+					$user=$system->db->getRow($query);
+					$_SESSION['id_admin']=$user['tentor_id'];
+					$_SESSION['username']=$user['tentor_username'];
+					$_SESSION['level']='tentor';
+					header("Location:index_admin.html");
+				}else{
+					$error=alert('error','login salah');
+				}
+				
+			}
 		}
-		
-		
-		
-	  }
+	}
 }
 
 
@@ -80,13 +99,14 @@ if (isset($_POST["login"])) {
 
 <div class="login-box">
   <div class="login-logo">
+	
     <a href="index.html"><b>SISTEM INFORMASI</b> <span class="small">Manajemen Informasi Bimbingan Belajar</span></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
 	<?= @$error ?>
     <p class="login-box-msg">Sign in to start your session</p>
-
+	
     <form action="" method="POST">
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="Username">

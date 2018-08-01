@@ -98,7 +98,18 @@ include 'config/function.php';
     <section class="sidebar">
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
-		<?php include 'menu.php' ?>
+		<?php
+			if($_SESSION['level']=='admin'){
+				include 'menu.php';
+			}elseif($_SESSION['level']=='manager'){
+				include 'menu.manager.php';
+			}elseif($_SESSION['level']=='siswa'){
+				include 'menu.siswa.php';
+			}elseif($_SESSION['level']=='tentor'){
+				include 'menu.tentor.php';
+			}
+
+		?>
     </section>
     <!-- /.sidebar -->
   </aside>
