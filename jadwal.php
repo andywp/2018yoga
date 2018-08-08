@@ -1,11 +1,12 @@
 <?php 
 include'header.php'; 
 $error='';
-/*hapus data kelas */
+
+
 
 if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
 	
-	$query="delete from tentor where tentor_id='".$_GET['id']."'";
+	$query="delete from mapel where mapel_id='".$_GET['id']."'";
 	$hapus=$system->db->execute($query);
 	if($hapus){
 		$error=alert('success','Data berhasil dihapus');
@@ -26,7 +27,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tentor 
+        Data Jadwal 
         
       </h1>
       <ol class="breadcrumb">
@@ -36,21 +37,17 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
 	 
     </section>
 	<?php
-		$dataKelas=$system->db->getAll("select * from tentor order by tentor_id DESC");
-		
+		$dataKelas=$system->db->getAll("select * from  jadwal  order by jadwal_id DESC");
 		$tabel='';
 		$no=1;
 		foreach($dataKelas as $r){
 			$tabel.='<tr>
 						<td>'.$no.'</td>
-						<td>'.$r['tentor_nama'].'</td>
-						<td>'.$r['tentor_alamat'].'</td>
-						<td>'.$r['tentor_telepon'].'</td>
-						
-						<td><a href="mengampu.html?id='.$r['tentor_id'].'" class="btn btn-info btn-sm" >Mengampu</a></td>
-						<td width="50" >
-						<a href="tentor.edit.html?id='.$r['tentor_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
-						<td width="50" ><a href="tentor.html?act=hapus&id='.$r['tentor_id'].'" onclick="return confirm (\'hapus data....?\')  " class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i></a></td>
+						<td>'.$r['tahunajaran'].'</td>
+						<td>'.$r['semester'].'</td>
+						<td>'.$r['jenjang'].'</td>
+						<td width="50" ><a class="btn btn-info btn-sm" href="jadwal.tentor.php?id='.$r['jadwal_id'].'">Jadwal Tentor</a></td>
+						<td width="50" ><a href="jadwal.edit.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
 					</tr>	';
 			$no++;
 		}
@@ -64,9 +61,9 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
     <section class="content">
 		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Tentor</h3>
+              <h3 class="box-title">Manage Jadwal</h3>
 			  <div class="box-tools">
-                <a href="tentor.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a>
+                <a href="jadwal.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a>
               </div>
             </div>
             <!-- /.box-header -->
@@ -76,12 +73,10 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
                 <tbody>
 				<tr>
                   <th width="40" >#</th>
-                  <th>Tentor</th>
-                  <th>Alamat</th>
-                  <th>Telepon</th>
-                 
-				
-                  <th colspan="3" class="text-center" >Ation</th>
+                  <th>Tahunajaran</th>
+                  <th>Semester</th>
+                  <th>Jenjang</th>
+                  <th colspan="2" class="text-center" >Ation</th>
                 </tr>
                 <?= $tabel ?>
 				</tbody>

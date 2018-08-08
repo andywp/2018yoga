@@ -12,7 +12,8 @@
 	  <ul class="treeview-menu">
 		<li><a href="kelas.html"><i class="fa fa-circle-o"></i> Kelas</a></li>
 		<li><a href="mapel.html"><i class="fa fa-circle-o"></i> Matapelajaran</a></li>
-		<li><a href="tentor.php"><i class="fa fa-circle-o"></i> Tentor</a></li>
+		<li><a href="tentor.html"><i class="fa fa-circle-o"></i> Tentor</a></li>
+		<li><a href="jadwal.html"><i class="fa fa-circle-o"></i> Jadwal</a></li>
 	  </ul>
 	</li>
 	<li class="treeview">
@@ -27,3 +28,5 @@
 	  </ul>
 	</li>
 </ul>
+
+

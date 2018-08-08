@@ -3,18 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Agu 2018 pada 03.49
+-- Generation Time: 08 Agu 2018 pada 03.38
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `2018_sekripsi_yogya`
@@ -40,6 +34,53 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `pass_admin`, `level`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
 (2, 'direktur', '4fbfd324f5ffcdff5dbf6f019b02eca8', 'manager');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_jadwal`
+--
+
+CREATE TABLE `detail_jadwal` (
+  `detail_id` int(11) NOT NULL,
+  `jadwal_id` int(11) NOT NULL,
+  `id_mengampu` int(11) NOT NULL,
+  `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
+  `jam` varchar(12) NOT NULL,
+  `ruangan` varchar(12) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data untuk tabel `detail_jadwal`
+--
+
+INSERT INTO `detail_jadwal` (`detail_id`, `jadwal_id`, `id_mengampu`, `hari`, `jam`, `ruangan`, `status`) VALUES
+(1, 2, 8, 'Senin', '13:00-14:45', 'A', 0),
+(2, 1, 4, 'Senin', '13:00-14:45', 'A', 0),
+(3, 1, 5, 'Selasa', '13:00-14:45', 'A', 0),
+(4, 1, 6, 'Rabu', '13:00-14:45', 'A', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal`
+--
+
+CREATE TABLE `jadwal` (
+  `jadwal_id` int(11) NOT NULL,
+  `jenjang` enum('SD','SMP','SMA') NOT NULL,
+  `tahunajaran` varchar(9) NOT NULL,
+  `semester` enum('Ganjil','Genap') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jadwal`
+--
+
+INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`) VALUES
+(1, 'SD', '2018/2019', 'Ganjil'),
+(2, 'SMP', '2018/2019', 'Ganjil');
 
 -- --------------------------------------------------------
 
@@ -78,7 +119,37 @@ CREATE TABLE `mapel` (
 --
 
 INSERT INTO `mapel` (`mapel_id`, `mapel`, `kelas_id`) VALUES
-(2, 'Bahasa Indonesia', 2);
+(8, 'Matematika', 1),
+(9, 'Bahasa Indonesia', 1),
+(10, 'IPA', 1),
+(11, 'IPS', 1),
+(16, 'Matematika', 2),
+(17, 'Bahasa Indonesia', 2),
+(18, 'Bahasa Inggris', 2),
+(19, 'IPA', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mengampu`
+--
+
+CREATE TABLE `mengampu` (
+  `id_mengampu` int(11) NOT NULL,
+  `tentor_id` int(11) NOT NULL,
+  `mapel_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `mengampu`
+--
+
+INSERT INTO `mengampu` (`id_mengampu`, `tentor_id`, `mapel_id`) VALUES
+(4, 3, 8),
+(5, 3, 9),
+(6, 3, 10),
+(7, 2, 11),
+(8, 2, 16);
 
 -- --------------------------------------------------------
 
@@ -126,7 +197,8 @@ CREATE TABLE `tentor` (
 --
 
 INSERT INTO `tentor` (`tentor_id`, `tentor_nama`, `tentor_alamat`, `tentor_telepon`, `mapel_id`, `tentor_username`, `tentor_password`) VALUES
-(2, 'Yoga suara nada', 'Yogyakarta', '35436464', 2, 'yoga', '807659cd883fc0a63f6ce615893b3558');
+(2, 'Yoga suara nada', 'Yogyakarta', '35436464', 2, 'yoga', '807659cd883fc0a63f6ce615893b3558'),
+(3, 'Muhamad Dani Kurniaw', 'petung//31', '123456', 2, 'dani', '55b7e8b895d047537e672250dd781555');
 
 --
 -- Indexes for dumped tables
@@ -139,6 +211,18 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
+-- Indexes for table `detail_jadwal`
+--
+ALTER TABLE `detail_jadwal`
+  ADD PRIMARY KEY (`detail_id`);
+
+--
+-- Indexes for table `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD PRIMARY KEY (`jadwal_id`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -149,6 +233,12 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `mapel`
   ADD PRIMARY KEY (`mapel_id`);
+
+--
+-- Indexes for table `mengampu`
+--
+ALTER TABLE `mengampu`
+  ADD PRIMARY KEY (`id_mengampu`);
 
 --
 -- Indexes for table `siswa`
@@ -172,6 +262,16 @@ ALTER TABLE `tentor`
 ALTER TABLE `admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `detail_jadwal`
+--
+ALTER TABLE `detail_jadwal`
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `jadwal`
+--
+ALTER TABLE `jadwal`
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -180,7 +280,12 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `mengampu`
+--
+ALTER TABLE `mengampu`
+  MODIFY `id_mengampu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `siswa`
 --
@@ -190,7 +295,4 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tentor`
 --
 ALTER TABLE `tentor`
-  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
