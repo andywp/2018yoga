@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Agu 2018 pada 03.38
+-- Generation Time: 15 Agu 2018 pada 03.55
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -48,6 +48,7 @@ CREATE TABLE `detail_jadwal` (
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam` varchar(12) NOT NULL,
   `ruangan` varchar(12) NOT NULL,
+  `program` enum('Privat','Kelas') NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
@@ -55,11 +56,12 @@ CREATE TABLE `detail_jadwal` (
 -- Dumping data untuk tabel `detail_jadwal`
 --
 
-INSERT INTO `detail_jadwal` (`detail_id`, `jadwal_id`, `id_mengampu`, `hari`, `jam`, `ruangan`, `status`) VALUES
-(1, 2, 8, 'Senin', '13:00-14:45', 'A', 0),
-(2, 1, 4, 'Senin', '13:00-14:45', 'A', 0),
-(3, 1, 5, 'Selasa', '13:00-14:45', 'A', 0),
-(4, 1, 6, 'Rabu', '13:00-14:45', 'A', 0);
+INSERT INTO `detail_jadwal` (`detail_id`, `jadwal_id`, `id_mengampu`, `hari`, `jam`, `ruangan`, `program`, `status`) VALUES
+(1, 2, 8, 'Senin', '13:00-14:45', 'A', 'Privat', 0),
+(2, 1, 4, 'Senin', '13:00-14:45', 'A', 'Privat', 0),
+(3, 1, 5, 'Selasa', '13:00-14:45', 'A', 'Privat', 0),
+(4, 1, 6, 'Rabu', '13:00-14:45', 'A', 'Privat', 0),
+(5, 2, 8, 'Kamis', '15:00-16:45', 'A', 'Kelas', 0);
 
 -- --------------------------------------------------------
 
@@ -81,6 +83,25 @@ CREATE TABLE `jadwal` (
 INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`) VALUES
 (1, 'SD', '2018/2019', 'Ganjil'),
 (2, 'SMP', '2018/2019', 'Ganjil');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal_siswa`
+--
+
+CREATE TABLE `jadwal_siswa` (
+  `id_jadwal_siswa` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `id_detail_jadwal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jadwal_siswa`
+--
+
+INSERT INTO `jadwal_siswa` (`id_jadwal_siswa`, `id_siswa`, `id_detail_jadwal`) VALUES
+(2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -174,7 +195,9 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nama_siswa`, `alamat`, `gender`, `nama_ortu`, `no_hp`, `email`, `username`, `password`) VALUES
-(1, 'Toni Siswa', 'JL. Mujamuju', 'L', 'Orang Tua Toni', '047466398', 'toni@orangtuanya.com', 'siswa', 'bcd724d15cde8c47650fda962968f102');
+(1, 'Toni Siswa', 'JL. Mujamuju', 'L', 'Orang Tua Toni', '047466398', 'toni@orangtuanya.com', 'siswa', 'bcd724d15cde8c47650fda962968f102'),
+(2, 'andi wijang prasetyo', 'selorejo 09/01 madu, mojosongo, boyolali', 'L', 'ayah', '085647067303', 'andy.wijang@gmail.com', 'andi', 'andi'),
+(3, 'andi wijang prasetyo', 'selorejo 09/01 madu, mojosongo, boyolali', 'L', 'ayah', '085647067303', 'andy.wijang@gmail.com', 'andi', 'ce0e5bf55e4f71749eade7a8b95c4e46');
 
 -- --------------------------------------------------------
 
@@ -223,6 +246,12 @@ ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`jadwal_id`);
 
 --
+-- Indexes for table `jadwal_siswa`
+--
+ALTER TABLE `jadwal_siswa`
+  ADD PRIMARY KEY (`id_jadwal_siswa`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -265,12 +294,17 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `detail_jadwal`
 --
 ALTER TABLE `detail_jadwal`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
   MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `jadwal_siswa`
+--
+ALTER TABLE `jadwal_siswa`
+  MODIFY `id_jadwal_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -290,7 +324,7 @@ ALTER TABLE `mengampu`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tentor`
 --

@@ -4,16 +4,13 @@ $error='';
 /*hapus data kelas */
 
 $jadwal=$system->db->getRow("select * from jadwal where jadwal_id='".$_GET['id']."'");
-
 if(isset($_POST['simpan'])){
-	
-	
 	$cek=$system->db->getOne("select detail_id from mengampu where id_mengampu='".$_POST['id_mengampu']."' and hari='".$_POST['hari']."' and jam='".$_POST['jam']."'");
 	if($cek){
 		$error=alert('error','Pengajar sudah ada dengan hari dan jam ');
 	}else{
 		
-		$query="insert into detail_jadwal set id_mengampu='".$_POST['id_mengampu']."' , hari='".$_POST['hari']."', jam='".$_POST['jam']."', ruangan='".$_POST['ruangan']."',jadwal_id='".$_POST['jadwal_id']."' ";
+	echo	$query="insert into detail_jadwal set id_mengampu='".$_POST['id_mengampu']."' , hari='".$_POST['hari']."', jam='".$_POST['jam']."', ruangan='".$_POST['ruangan']."',jadwal_id='".$_POST['jadwal_id']."',program='".$_POST['program']."' ";
 		$simpan=$system->db->execute($query);
 		if($simpan){
 			$error=alert('success','Data berhasil ditambahkan');
@@ -89,6 +86,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 							<tr>
 								<td>'.$i.'</td>
 								<td>'.$r['jam'].'</td>
+								<td>'.$r['program'].'</td>
 								<td>'.$r['mapel'].'</td>
 								<td>'.$r['ruangan'].'</td>
 								<td>'.$r['tentor_nama'].'</td>
@@ -108,6 +106,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 								<tr>
 								  <th width="40" >#</th>
 								  <th>Waktu</th>
+								  <th>Program</th>
 								  <th>Mapel</th>
 								  <th>Ruangan</th>
 								  <th>Nama Tentor</th>
@@ -238,7 +237,15 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 					<option value="E" >E</option>
 				  </select>
 			</div>
-		
+			<div class="form-group">
+				<label>Program</label>
+				  <select name="program" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+				  <option value="" >Pilih</option>
+				  <option value="Kelas" >Kelas</option>
+				  <option value="Privat" >Privat</option>
+					
+				  </select>
+			</div>
         </div>
         <div class="modal-footer">
 			<input type="hidden" name="jadwal_id" value="<?= $jadwal['jadwal_id'] ?>">

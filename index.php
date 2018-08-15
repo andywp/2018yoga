@@ -84,6 +84,35 @@ if (isset($_POST["login"])) {
 	}
 }
 
+if(isset($_POST['simpan'])){
+	
+	/* adodb_pr($_POST); */
+	$fild='';
+	foreach($_POST as $k=>$v){
+		if($k!='simpan'){
+			
+			$v=($k=='password')?md5($v):$v;
+			
+		$fild.=$k.'="'.$v.'",';
+		}
+	}
+	$query="insert into siswa set ".$fild."id_siswa=''";
+	$simpan=$system->db->execute($query);
+	if($simpan){
+		$error=alert('success','Data berhasil simpan silahkan login untuk proses selanjutnya');
+		$_POST=array();
+		
+	}else{
+		$error=alert('error','terjadi kesalahan');
+	}
+	
+	
+}
+
+
+
+
+
 
 
 ?>
@@ -118,13 +147,94 @@ if (isset($_POST["login"])) {
       </div>
       <div class="row">
         <!-- /.col -->
-        <div class="col-xs-4">
+        <div class="col-xs-6">
           <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">Sign In</button>
+		</div>
+		<div class="col-xs-6">
+		  <button type="button" class="btn btn-info btn-block btn-flat" data-toggle="modal" data-target="#myModal">Daftar</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-
+	
+	
+	 <!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		  <!-- Modal content-->
+		  <form class="form-horizontal"  role="form" method="POST" enctype="multipart/form-data" action="">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">Form Pendaftaran </h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" >Nama</label>
+				  <div class="col-sm-10">
+					<input type="text" class="form-control" name="nama_siswa"  required>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label"  >Alamat</label>
+				  <div class="col-sm-10">
+						<textarea name="alamat" class="form-control" rows="3" placeholder="Enter ..." required="required"></textarea>
+				  </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"  >Jenis Kelamin</label>
+					 <div class="col-sm-10">
+						  <select name="gender" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+							<option value="" >Pilih</option>
+							<option value="L">LAKI-LAKI</option>
+							<option value="P">PEREMPUAN</option>
+						  </select>
+					 </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" >Nama orang tua</label>
+				  <div class="col-sm-10">
+						<input type="text" class="form-control" name="nama_ortu"  required>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label"  >Telepon / HP</label>
+				  <div class="col-sm-10">
+					<input type="text" class="form-control" name="no_hp"  required>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" >Email</label>
+				  <div class="col-sm-10">
+						<input type="email" class="form-control" name="email"  required>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" >Username</label>
+				  <div class="col-sm-10">
+						<input type="text" class="form-control" name="username"  required>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label"  >Password</label>
+				  <div class="col-sm-10">
+						<input type="password" class="form-control" name="password"  required>
+				  </div>
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" name="simpan" class="btn btn-primary">Daftar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		  </form>
+		</div>
+	</div>
+	
+	
+	
+	
 
     <!-- /.social-auth-links -->
 <!--
