@@ -10,6 +10,7 @@ include 'adodb5/adodb.inc.php';
 	  
 	  class System{
 		  function System(){
+			 
 			  global $db;
 			  $this->db 		= NewADOConnection($db['db_driver']);
 			  if (!$this->db->Connect($db['host'] ,$db['user'] ,$db['password'],$db['nama_db'])){	
@@ -17,6 +18,12 @@ include 'adodb5/adodb.inc.php';
 			}
 			$ADODB_FETCH_MODE 	= ADODB_FETCH_ASSOC;
 		  }
+		  
+		  
+		  
+		  
+		  
+		  
 	  } 
 	  $system= new System;
 

@@ -75,12 +75,60 @@ if(isset($_POST['addjadwal'])){
                 <a href="jadwa.tambah.siswa.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah </i></a>
               </div>
             </div>
-	
-         </div>
+			<form  role="form" method="POST" class="" enctype="multipart/form-data" action="">
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								  <select name="jenjang"   class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+									<option value="" >Pilih Kelas</option>
+									<option value="SD" >SD</option>
+									<option value="SMP" >SMP</option>
+									<option value="SMA" >SMA</option>
+									<?#= $optionMapel ?>
+								  </select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								  <select name="id_jadwal"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+									<option value="" >Pilih Semester</option>
+									<option value="Ganjil" >Ganjil</option>
+									<option value="Genap" >Genap</option>
+									
+									<?#= $optionMapel ?>
+								  </select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<button type="submit" name="addjadwal" class="btn btn-primary">Lihat Jadwal</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /.box-body -->
+			  
+			</form>
+            <div class="box-body no-padding">
+				<?= $error ?>
+           <!--   <table class="table table-striped">
+                <tbody>
+				<tr>
+                  <th width="40" >#</th>
+                  <th>Mapel</th>
+                  <th>Kelas</th>
+                  <th>Jenjang</th>
+                  <th colspan="2" class="text-center" >Ation</th>
+                </tr>
+                <?= $tabel ?>
+				</tbody>
+			  </table> -->
+            </div>
           
-		<div class="box-footer clearfix">
-			<?#= $peging ?>
-		</div>
+			<div class="box-footer clearfix">
+				<?#= $peging ?>
+			</div>
           </div> 
 
     </section>

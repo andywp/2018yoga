@@ -68,13 +68,13 @@ foreach($mapel as $data){
 					  <label>Telepon</label>
 					  <input type="text" class="form-control" name="tentor_telepon" value="<?= $r['tentor_telepon'] ?>"  required>
 					</div>
-					<div class="form-group">
+				<!--	<div class="form-group">
 						<label>Matepelajaran</label>
 						  <select name="mapel_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 							<option>Pilih</option>
 							<?= $optionMapel ?>
 						  </select>
-					</div>
+					</div> -->
 					<div class="form-group">
 					  <label>Username</label>
 					  <input type="text" class="form-control" name="tentor_username"  value="<?= $r['tentor_username'] ?>"  required>

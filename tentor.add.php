@@ -7,7 +7,7 @@ $error='';
 <?php
 if(isset($_POST['simpan'])){	
 
- 	$query="insert into tentor set tentor_nama='".$_POST['tentor_nama']."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,mapel_id='".$_POST['mapel_id']."',tentor_username='".$_POST['tentor_username']."',tentor_password='".md5($_POST['tentor_password'])."' ";
+ 	$query="insert into tentor set tentor_nama='".htmlentities($_POST['tentor_nama'])."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,tentor_username='".$_POST['tentor_username']."',tentor_password='".md5($_POST['tentor_password'])."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');
@@ -28,14 +28,9 @@ foreach($mapel as $data){
 	/* $selected=($data['kelas_id']==$r['kelas_id'])?'selected':''; */
 	$optionMapel.='<option value="'.$data['mapel_id'].'"  >'.$data['mapel'].' ( '.$data['kelas'].' '.$data['jenjang'].'  )</option>';
 }
-
 ?>
-
-
-	  <section class="content-header">
-		  <h1>
-			Form Input Tentor
-		  </h1>
+  <section class="content-header">
+		  <h1>Form Input Tentor </h1>
 		  <ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">Dashboard</li>
@@ -67,13 +62,13 @@ foreach($mapel as $data){
 					  <label>Telepon</label>
 					  <input type="text" class="form-control" name="tentor_telepon"  required>
 					</div>
-					<div class="form-group">
+				<!--	<div class="form-group">
 						<label>Matepelajaran</label>
 						  <select name="mapel_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 							<option>Pilih</option>
 							<?= $optionMapel ?>
 						  </select>
-					</div>
+					</div> -->
 					<div class="form-group">
 					  <label>Username</label>
 					  <input type="text" class="form-control" name="tentor_username"  required>
