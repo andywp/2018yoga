@@ -9,7 +9,7 @@ $data=$system->db->getRow("select * from jadwal where jadwal_id='".$_GET['id']."
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="update  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."' where jadwal_id='".$_GET['id']."' ";
+	$query="update  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."',biaya='".$_POST['biaya']."' where jadwal_id='".$_GET['id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil DIUBAH');
@@ -83,7 +83,10 @@ if(isset($_POST['simpan'])){
 						<option value="Genap" <?= ($data['semester']=='Genap')?'selected':''; ?> >Genap</option>
 						</select>
 					</div>
-
+					<div class="form-group">
+					  <label>Biaya Per Bulan</label>
+					  <input type="text" class="form-control" name="biaya" value="<?= $data['biaya'] ?>"  required>
+					</div>
 						  <div class="box-footer">
 							<button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
 						  </div>

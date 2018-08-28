@@ -1,4 +1,4 @@
-  <?php 
+<?php 
 include'header.php'; 
 $error='';
 /*hapus data kelas */
@@ -38,50 +38,62 @@ if(isset($_POST['addjadwal'])){
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
-	 
     </section>
-	<?php
-		$dataKelas=$system->db->getAll("select a.* , b.kelas,jenjang from mapel as a , kelas as b  where a.kelas_id=b.kelas_id order by a.mapel_id DESC");
-		$tabel='';
-		$no=1;
-		foreach($dataKelas as $r){
-			$tabel.='<tr>
-						<td>'.$no.'</td>
-						<td>'.$r['mapel'].'</td>
-						<td>'.$r['kelas'].'</td>
-						<td>'.$r['jenjang'].'</td>
-						<td width="50" ><a href="mapel.edit.html?id='.$r['mapel_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
-						<td width="50" ><a href="mapel.html?act=hapus&id='.$r['mapel_id'].'" onclick="return confirm (\'hapus data....?\')  " class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i></a></td>
-					</tr>	';
-			$no++;
-		}
-	
-	
-
-		
-	
-	
-	
-	?>
-	
-	
 	
     <!-- Main content -->
     <section class="content">
 		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Jadwal</h3>
+              <h3 class="box-title">Pengaturan Jadwal</h3>
 			  <div class="box-tools">
                 <a href="jadwa.tambah.siswa.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah </i></a>
               </div>
             </div>
 	
          </div>
-          
+         <div class="box-body no-padding">
+		<?php
+			$jadwal=$system->db->getAll("select * from jadwal_siswa as a , jadwal as b where a.jadwal_id=b.jadwal_id and a.id_siswa=".$_SESSION['id_admin']."  ");
+			$no=1;
+			$html='';
+			foreach($jadwal as $r){
+				$html.='<tr>
+							<td>'.$no.'</td>
+							<td>'.$r['jenjang'].'</td>
+							<td>'.$r['semester'].'</td>
+							<td>'.$r['tahunajaran'].'</td>
+							<td width="100" ><a href="jadwal.lihat.siswa.html?id='.$r['jadwal_id'].'" title="lihat Jadwal" class="btn btn-info">Lihat Jadwal</a> </td>
+							<td width="100"  ><a href="" title="lihat Jadwal" class="btn btn-success">Ubah</a> </td>
+							
+						
+						</tr>
+						';
+				$no++;
+			}
+			
+		
+		?>
+			<table class="table table-striped">
+                <tbody>
+				<tr>
+                  <th width="40" >#</th>
+                  <th>Jenjang</th>
+                  <th>Semester</th>
+                  <th>Tahuna Ajaran</th>
+                  <th colspan="2" class="text-center" >Ation</th>
+                </tr>
+                <?= @$html ?>
+				</tbody>
+			  </table> 
+		 
+		 
+		 
+		 
+		 </div>
 		<div class="box-footer clearfix">
-			<?#= $peging ?>
+			
 		</div>
-          </div> 
+     </div> 
 
     </section>
     <!-- /.content -->

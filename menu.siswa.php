@@ -10,10 +10,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pengaturan.jadwal.html"><i class="fa fa-circle-o"></i> Pengaturan Jadwal</a></li>
-            <li><a href="pembayaran.jadwal"><i class="fa fa-circle-o"></i> Pembayaran</a></li>
-            
+            <li><a href="pengaturan.jadwal.html"><i class="fa fa-circle-o"></i> Pengaturan Jadwal</a></li>            
           </ul>
         </li>
-	<li class=""><a href="tes.html"><i class="fa fa-cc-visa"></i> Pembayaran</a></li>
+	<li class=""><a href="pembayaran.html"><i class="fa fa-cc-visa"></i> Pembayaran</a></li>
 </ul>

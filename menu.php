@@ -18,6 +18,24 @@
 	</li>
 	<li class="treeview">
 	  <a href="#">
+		<i class="fa fa-clone"></i>
+		<span>Lapoaran</span>
+		<span class="pull-right-container">
+		  <i class="fa fa-angle-left pull-right"></i>
+		</span>
+	  </a>
+	  <ul class="treeview-menu">
+		<li class=""><a href="siswa.data.admin.html"><i class="fa  fa-user"></i> Data Siswa</a></li>
+		<li class=""><a href="tentor.data.admin.html"><i class="fa  fa-users"></i> Data Tentor</a></li>
+		
+	  </ul>
+	</li>
+	
+	
+	
+	<li class=""><a href="pembayaran.admin.html"><i class="fa fa-cc-visa"></i> Pembayaran</a></li>
+	<li class="treeview">
+	  <a href="#">
 		<i class="fa fa-edit"></i> <span>Akun</span>
 		<span class="pull-right-container">
 		  <i class="fa fa-angle-left pull-right"></i>

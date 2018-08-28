@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 15 Agu 2018 pada 03.55
+-- Generation Time: 28 Agu 2018 pada 19.28
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -61,7 +61,30 @@ INSERT INTO `detail_jadwal` (`detail_id`, `jadwal_id`, `id_mengampu`, `hari`, `j
 (2, 1, 4, 'Senin', '13:00-14:45', 'A', 'Privat', 0),
 (3, 1, 5, 'Selasa', '13:00-14:45', 'A', 'Privat', 0),
 (4, 1, 6, 'Rabu', '13:00-14:45', 'A', 'Privat', 0),
-(5, 2, 8, 'Kamis', '15:00-16:45', 'A', 'Kelas', 0);
+(5, 2, 8, 'Kamis', '15:00-16:45', 'A', 'Kelas', 0),
+(6, 2, 13, 'Kamis', '15:00-16:45', 'A', 'Kelas', 0),
+(7, 2, 13, 'Jumat', '13:00-14:45', 'A', 'Kelas', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_pebayaran`
+--
+
+CREATE TABLE `detail_pebayaran` (
+  `detail_pebayaran_id` int(11) NOT NULL,
+  `pembayaran_id` int(11) NOT NULL,
+  `bulan` varchar(20) NOT NULL,
+  `biaya` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_pebayaran`
+--
+
+INSERT INTO `detail_pebayaran` (`detail_pebayaran_id`, `pembayaran_id`, `bulan`, `biaya`) VALUES
+(1, 1, 'Juli', 200000),
+(2, 1, 'Agustus', 200000);
 
 -- --------------------------------------------------------
 
@@ -73,16 +96,18 @@ CREATE TABLE `jadwal` (
   `jadwal_id` int(11) NOT NULL,
   `jenjang` enum('SD','SMP','SMA') NOT NULL,
   `tahunajaran` varchar(9) NOT NULL,
-  `semester` enum('Ganjil','Genap') NOT NULL
+  `semester` enum('Ganjil','Genap') NOT NULL,
+  `biaya` varchar(15) NOT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `jadwal`
 --
 
-INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`) VALUES
-(1, 'SD', '2018/2019', 'Ganjil'),
-(2, 'SMP', '2018/2019', 'Ganjil');
+INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`, `biaya`, `status`) VALUES
+(1, 'SD', '2018/2019', 'Ganjil', '250000', 1),
+(2, 'SMP', '2018/2019', 'Ganjil', '200000', 1);
 
 -- --------------------------------------------------------
 
@@ -93,15 +118,15 @@ INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`) VALUES
 CREATE TABLE `jadwal_siswa` (
   `id_jadwal_siswa` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
-  `id_detail_jadwal` int(11) NOT NULL
+  `jadwal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `jadwal_siswa`
 --
 
-INSERT INTO `jadwal_siswa` (`id_jadwal_siswa`, `id_siswa`, `id_detail_jadwal`) VALUES
-(2, 3, 1);
+INSERT INTO `jadwal_siswa` (`id_jadwal_siswa`, `id_siswa`, `jadwal_id`) VALUES
+(6, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -170,7 +195,36 @@ INSERT INTO `mengampu` (`id_mengampu`, `tentor_id`, `mapel_id`) VALUES
 (5, 3, 9),
 (6, 3, 10),
 (7, 2, 11),
-(8, 2, 16);
+(8, 2, 16),
+(9, 3, 11),
+(10, 2, 9),
+(11, 2, 10),
+(12, 6, 8),
+(13, 6, 16),
+(14, 6, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `pembayaran_id` int(11) NOT NULL,
+  `id_jadwal_siswa` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `total_bayar` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `bukti_upload` varchar(100) NOT NULL,
+  `approve` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`pembayaran_id`, `id_jadwal_siswa`, `id_siswa`, `total_bayar`, `tanggal`, `bukti_upload`, `approve`) VALUES
+(1, 6, 3, 400000, '2018-08-26', '20180827033317.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -221,7 +275,8 @@ CREATE TABLE `tentor` (
 
 INSERT INTO `tentor` (`tentor_id`, `tentor_nama`, `tentor_alamat`, `tentor_telepon`, `mapel_id`, `tentor_username`, `tentor_password`) VALUES
 (2, 'Yoga suara nada', 'Yogyakarta', '35436464', 2, 'yoga', '807659cd883fc0a63f6ce615893b3558'),
-(3, 'Muhamad Dani Kurniaw', 'petung//31', '123456', 2, 'dani', '55b7e8b895d047537e672250dd781555');
+(3, 'Muhamad Dani Kurniaw', 'petung//31', '123456', 2, 'dani', '55b7e8b895d047537e672250dd781555'),
+(6, 'Rendy', 'Yogyakarta', '35436464', 0, 'rendy', '88ad32a14f7f7964d03dad411ffcc59b');
 
 --
 -- Indexes for dumped tables
@@ -238,6 +293,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `detail_jadwal`
   ADD PRIMARY KEY (`detail_id`);
+
+--
+-- Indexes for table `detail_pebayaran`
+--
+ALTER TABLE `detail_pebayaran`
+  ADD PRIMARY KEY (`detail_pebayaran_id`);
 
 --
 -- Indexes for table `jadwal`
@@ -270,6 +331,12 @@ ALTER TABLE `mengampu`
   ADD PRIMARY KEY (`id_mengampu`);
 
 --
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`pembayaran_id`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -294,7 +361,12 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `detail_jadwal`
 --
 ALTER TABLE `detail_jadwal`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `detail_pebayaran`
+--
+ALTER TABLE `detail_pebayaran`
+  MODIFY `detail_pebayaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
@@ -304,7 +376,7 @@ ALTER TABLE `jadwal`
 -- AUTO_INCREMENT for table `jadwal_siswa`
 --
 ALTER TABLE `jadwal_siswa`
-  MODIFY `id_jadwal_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jadwal_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -319,7 +391,12 @@ ALTER TABLE `mapel`
 -- AUTO_INCREMENT for table `mengampu`
 --
 ALTER TABLE `mengampu`
-  MODIFY `id_mengampu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_mengampu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `pembayaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `siswa`
 --
@@ -329,4 +406,4 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tentor`
 --
 ALTER TABLE `tentor`
-  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;

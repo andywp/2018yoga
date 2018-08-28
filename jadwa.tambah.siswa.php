@@ -31,12 +31,8 @@ if(isset($_POST['tambah'])){
 		
 		$error=alert('error','Gagal menyimpan');
 	} 
-	
-	
-	
+		
 }
-
-
 
 
 $optionMapel='';

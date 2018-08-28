@@ -7,7 +7,7 @@ $error='';
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="insert into  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."' ";
+	$query="insert into  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."',biaya='".$_POST['biaya']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');
