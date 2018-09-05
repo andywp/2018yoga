@@ -152,7 +152,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 			 <table class="table table-striped">
 			  <div class="box-tools">
 				<ul class="list-inline list-unstyled">
-                <li><a href="tentor.html" class="btn btn-block btn-danger" ><i class="fa fa-arrow-left"> Kembali</i></a></li>
+                <li><a href="jadwal.html" class="btn btn-block btn-danger" ><i class="fa fa-arrow-left"> Kembali</i></a></li>
                <li> <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"> Tambah</i></button></li>
 				</ul>
               </div>

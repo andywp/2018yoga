@@ -14,6 +14,11 @@ include 'config/function.php';
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="asset/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/custom/css/datepicker.css">
+  <link rel="stylesheet" href="plugins/custom/css/bootstrap-timepicker.css">
+  <link rel="stylesheet" href="plugins/custom/css/daterangepicker.css">
+  <link rel="stylesheet" href="plugins/custom/css/bootstrap-datetimepicker.css">
+
    <!-- Select2 -->
   <link rel="stylesheet" href="asset/select2/dist/css/select2.min.css">
   <!-- Font Awesome -->
@@ -32,7 +37,7 @@ include 'config/function.php';
   <!-- Date Picker -->
   <link rel="stylesheet" href="asset/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="asset/bootstrap-daterangepicker/daterangepicker.css">
+ 
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 	<style>

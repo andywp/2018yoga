@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 28 Agu 2018 pada 19.28
+-- Generation Time: 05 Sep 2018 pada 06.18
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -13,6 +13,49 @@ SET time_zone = "+00:00";
 --
 -- Database: `2018_sekripsi_yogya`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `absensi_tentor`
+--
+
+CREATE TABLE `absensi_tentor` (
+  `absensi_id` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `keterangan` enum('Hadir','Sakit','Alfa','Izin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data untuk tabel `absensi_tentor`
+--
+
+INSERT INTO `absensi_tentor` (`absensi_id`, `detail_id`, `tanggal`, `keterangan`) VALUES
+(1, 6, '2018-09-05 09:24:21', 'Hadir'),
+(2, 1, '2018-09-05 09:39:53', 'Hadir'),
+(3, 1, '2018-09-05 09:39:53', 'Hadir');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `absens_siswa`
+--
+
+CREATE TABLE `absens_siswa` (
+  `absens_siswa_id` int(11) NOT NULL,
+  `id_jadwal_siswa` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `keterangan` enum('Hadir','Sakit','Alfa','Izin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `absens_siswa`
+--
+
+INSERT INTO `absens_siswa` (`absens_siswa_id`, `id_jadwal_siswa`, `tanggal`, `keterangan`) VALUES
+(1, 6, '2018-09-05 10:20:37', 'Hadir'),
+(2, 6, '2018-09-05 10:20:37', 'Hadir');
 
 -- --------------------------------------------------------
 
@@ -283,6 +326,18 @@ INSERT INTO `tentor` (`tentor_id`, `tentor_nama`, `tentor_alamat`, `tentor_telep
 --
 
 --
+-- Indexes for table `absensi_tentor`
+--
+ALTER TABLE `absensi_tentor`
+  ADD PRIMARY KEY (`absensi_id`);
+
+--
+-- Indexes for table `absens_siswa`
+--
+ALTER TABLE `absens_siswa`
+  ADD PRIMARY KEY (`absens_siswa_id`);
+
+--
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
@@ -352,6 +407,16 @@ ALTER TABLE `tentor`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `absensi_tentor`
+--
+ALTER TABLE `absensi_tentor`
+  MODIFY `absensi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `absens_siswa`
+--
+ALTER TABLE `absens_siswa`
+  MODIFY `absens_siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `admin`
 --

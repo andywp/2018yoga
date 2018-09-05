@@ -36,7 +36,7 @@ if(isset($_POST['status'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Jadwal 
+        Data Absensi Siswa
         
       </h1>
       <ol class="breadcrumb">
@@ -59,19 +59,8 @@ if(isset($_POST['status'])){
 						<td>'.$no.'</td>
 						<td>'.$r['tahunajaran'].'</td>
 						<td>'.$r['semester'].'</td>
-						<td>'.$r['jenjang'].'</td>
-						<td width="50" ><a class="btn btn-info btn-sm" href="jadwal.tentor.php?id='.$r['jadwal_id'].'">Jadwal Tentor</a></td>
-						<td width="150" >
-							<form  role="form" method="POST" enctype="multipart/form-data" action="">
-								<input type="hidden" name="jadwal_id" value="'.$r['jadwal_id'].'">
-								<select name="status"  onchange="this.form.submit()" class="form-control " style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-								<option value="1" '.$aktif.' >Akrif</option>
-								<option value="0" '.$NOaktif.' >Non Aktif</option>
-								</select>
-							</form>
-						
-						</td>
-						<td width="50" ><a href="jadwal.edit.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
+						<td>'.$r['jenjang'].'</td>			
+						<td width="50" ><a href="absensi.siswa.input.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success">Absensi</a></td>
 					</tr>	';
 			$no++;
 		}
@@ -85,9 +74,9 @@ if(isset($_POST['status'])){
     <section class="content">
 		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Jadwal</h3>
+              <h3 class="box-title">Pilih Jadwal</h3>
 			  <div class="box-tools">
-                <a href="jadwal.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a>
+               <!-- <a href="jadwal.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -100,7 +89,7 @@ if(isset($_POST['status'])){
                   <th>Tahunajaran</th>
                   <th>Semester</th>
                   <th>Jenjang</th>
-                  <th colspan="3" class="text-center" >Ation</th>
+                  <th class="text-center" >Ation</th>
                 </tr>
                 <?= $tabel ?>
 				</tbody>

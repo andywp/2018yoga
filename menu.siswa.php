@@ -14,4 +14,5 @@
           </ul>
         </li>
 	<li class=""><a href="pembayaran.html"><i class="fa fa-cc-visa"></i> Pembayaran</a></li>
+	<li class=""><a href="absensi.user.siswa.html"><i class="fa fa-users"></i> absensi</a></li>
 </ul>

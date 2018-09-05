@@ -36,7 +36,7 @@ if(isset($_POST['status'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Jadwal 
+        Data Absensi Tentor
         
       </h1>
       <ol class="breadcrumb">
@@ -46,7 +46,7 @@ if(isset($_POST['status'])){
 	 
     </section>
 	<?php
-		$dataKelas=$system->db->getAll("select * from  jadwal  order by jadwal_id DESC");
+		$dataKelas=$system->db->getAll("select a.* ,b.detail_id  from  jadwal as a , detail_jadwal as b , mengampu as c where a.jadwal_id=b.jadwal_id  and b.id_mengampu=c.id_mengampu and c.tentor_id=".$_SESSION['id_admin']." order by a.jadwal_id DESC");
 		$tabel='';
 		$no=1;
 		foreach($dataKelas as $r){
@@ -59,23 +59,15 @@ if(isset($_POST['status'])){
 						<td>'.$no.'</td>
 						<td>'.$r['tahunajaran'].'</td>
 						<td>'.$r['semester'].'</td>
-						<td>'.$r['jenjang'].'</td>
-						<td width="50" ><a class="btn btn-info btn-sm" href="jadwal.tentor.php?id='.$r['jadwal_id'].'">Jadwal Tentor</a></td>
-						<td width="150" >
-							<form  role="form" method="POST" enctype="multipart/form-data" action="">
-								<input type="hidden" name="jadwal_id" value="'.$r['jadwal_id'].'">
-								<select name="status"  onchange="this.form.submit()" class="form-control " style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-								<option value="1" '.$aktif.' >Akrif</option>
-								<option value="0" '.$NOaktif.' >Non Aktif</option>
-								</select>
-							</form>
-						
-						</td>
-						<td width="50" ><a href="jadwal.edit.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
+						<td>'.$r['jenjang'].'</td>			
+						<td width="50" ><a href="absensi.user.tentor.list.html?id='.$r['detail_id'].'" class="btn btn-block btn-success">Absensi</a></td>
 					</tr>	';
 			$no++;
 		}
-
+		
+		
+	/* 	$data=$system->db->getAll('select a.detail_id, b.tentor_nama ,c.mapel from detail_jadwal as a, tentor as b , mapel as c, mengampu as d where a.id_mengampu=d.id_mengampu and d.tentor_id=b.tentor_id  and d.tentor_id="'.$_SESSION['id_admin'].'" ');
+adodb_pr($data); */
 	
 	?>
 	
@@ -85,9 +77,9 @@ if(isset($_POST['status'])){
     <section class="content">
 		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manage Jadwal</h3>
+              <h3 class="box-title">Pilih Jadwal</h3>
 			  <div class="box-tools">
-                <a href="jadwal.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a>
+               <!-- <a href="jadwal.add.html" class="btn btn-block btn-primary"><i class="fa fa-plus"> Tambah</i></a> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -100,7 +92,7 @@ if(isset($_POST['status'])){
                   <th>Tahunajaran</th>
                   <th>Semester</th>
                   <th>Jenjang</th>
-                  <th colspan="3" class="text-center" >Ation</th>
+                  <th class="text-center" >Ation</th>
                 </tr>
                 <?= $tabel ?>
 				</tbody>
