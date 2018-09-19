@@ -7,7 +7,7 @@ $error='';
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="insert into mapel set mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' ";
+	$query="insert into mapel set kode='".$_POST['kode']."', mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');
@@ -52,6 +52,10 @@ foreach($kelas as $r){
 				<?=  @$error ?>
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
+					<div class="form-group">
+					  <label>Kode</label>
+					  <input type="text" max="8" min="8" class="form-control" name="kode"  required>
+					</div>
 					<div class="form-group">
 					  <label>Matapelajaran</label>
 					  <input type="text" class="form-control" name="mapel"  required>

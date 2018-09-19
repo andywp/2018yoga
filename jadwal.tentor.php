@@ -57,7 +57,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 	<?php
 
 		$optionMapel='';
-		$kelas=$system->db->getAll("select a.id_mengampu, b.mapel, c.kelas,jenjang ,d.tentor_nama from  mengampu as a, mapel as b, kelas as c , tentor as d where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id=d.tentor_id and c.jenjang='".$jadwal['jenjang']."'");
+		$kelas=$system->db->getAll("select a.id_mengampu, b.kode,mapel, c.kelas,jenjang ,d.tentor_nama from  mengampu as a, mapel as b, kelas as c , tentor as d where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id=d.tentor_id and c.jenjang='".$jadwal['jenjang']."'");
 		/* adodb_pr($kelas); */
 		foreach($kelas as $r){
 			$optionMapel.='<option value="'.$r['id_mengampu'].'">'.$r['mapel'].' ( '.$r['kelas'].' - '.$r['jenjang'].' / '.$r['tentor_nama'].' )</option>';
@@ -77,7 +77,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 		$html='';
 		foreach($hari as $k=>$v){
 			
-			$jadwalMengapu=$system->db->getAll('select a.*, b.tentor_nama, c.mapel from detail_jadwal as a, tentor as b , mapel as c, mengampu as d where a.id_mengampu=d.id_mengampu and d.tentor_id=b.tentor_id and d.mapel_id=c.mapel_id and a.jadwal_id="'.$jadwal['jadwal_id'].'" and a.hari="'.$v.'" ');
+			$jadwalMengapu=$system->db->getAll('select a.*, b.tentor_nama, c.kode,mapel from detail_jadwal as a, tentor as b , mapel as c, mengampu as d where a.id_mengampu=d.id_mengampu and d.tentor_id=b.tentor_id and d.mapel_id=c.mapel_id and a.jadwal_id="'.$jadwal['jadwal_id'].'" and a.hari="'.$v.'" ');
 			/* adodb_pr($jadwalMengapu); */
 			$tabelList='';
 			$i=1;
@@ -87,6 +87,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 								<td>'.$i.'</td>
 								<td>'.$r['jam'].'</td>
 								<td>'.$r['program'].'</td>
+								<td>'.$r['kode'].'</td>
 								<td>'.$r['mapel'].'</td>
 								<td>'.$r['ruangan'].'</td>
 								<td>'.$r['tentor_nama'].'</td>
@@ -107,6 +108,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 								  <th width="40" >#</th>
 								  <th>Waktu</th>
 								  <th>Program</th>
+								  <th>Kode Mapel</th>
 								  <th>Mapel</th>
 								  <th>Ruangan</th>
 								  <th>Nama Tentor</th>

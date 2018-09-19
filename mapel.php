@@ -42,6 +42,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
 		foreach($dataKelas as $r){
 			$tabel.='<tr>
 						<td>'.$no.'</td>
+						<td>'.$r['kode'].'</td>
 						<td>'.$r['mapel'].'</td>
 						<td>'.$r['kelas'].'</td>
 						<td>'.$r['jenjang'].'</td>

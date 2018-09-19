@@ -71,12 +71,13 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 			$optionMapel.='<option value="'.$r['mapel_id'].'">'.$r['mapel'].' ( '.$r['kelas'].' - '.$r['jenjang'].' )</option>';
 		}
 
-		$dataKelas=$system->db->getAll("select a.id_mengampu, b.mapel, c.kelas,jenjang from  mengampu as a, mapel as b, kelas as c where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id='".$_GET['id']."'");
+		$dataKelas=$system->db->getAll("select a.id_mengampu, b.kode,mapel, c.kelas,jenjang from  mengampu as a, mapel as b, kelas as c where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id='".$_GET['id']."'");
 		$tabel='';
 		$no=1;
 		foreach($dataKelas as $r){
 			$tabel.='<tr>
 						<td>'.$no.'</td>
+						<td>'.$r['kode'].'</td>
 						<td>'.$r['mapel'].'</td>
 						<td>'.$r['kelas'].'</td>
 						<td>'.$r['jenjang'].'</td>
@@ -124,6 +125,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
                 <tbody>
 				<tr>
                   <th width="40" >#</th>
+                  <th>Kode</th>
                   <th>Mapel</th>
                   <th>Kelas</th>
                   <th>Jenjang</th>

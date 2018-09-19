@@ -7,7 +7,7 @@ $error='';
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="update  mapel set mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' where mapel_id='".$_POST['mapel_id']."' ";
+	$query="update  mapel set kode='".$_POST['kode']."',  mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' where mapel_id='".$_POST['mapel_id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil diupdate');
@@ -62,6 +62,10 @@ foreach($kelas as $data){
 				<?=  @$error ?>
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
+					<div class="form-group">
+					  <label>Kode</label>
+					  <input type="text" max="8" min="8" class="form-control" name="kode" value="<?= $r['kode'] ?>"  required>
+					</div>
 					<div class="form-group">
 					  <label>Matapelajaran</label>
 					  <input type="text" class="form-control" name="mapel" value="<?= $r['mapel'] ?>"  required>

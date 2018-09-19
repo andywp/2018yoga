@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Sep 2018 pada 06.18
+-- Generation Time: 19 Sep 2018 pada 03.25
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -199,6 +199,7 @@ INSERT INTO `kelas` (`kelas_id`, `kelas`, `jenjang`) VALUES
 
 CREATE TABLE `mapel` (
   `mapel_id` int(11) NOT NULL,
+  `kode` varchar(8) NOT NULL,
   `mapel` varchar(20) NOT NULL,
   `kelas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -207,15 +208,15 @@ CREATE TABLE `mapel` (
 -- Dumping data untuk tabel `mapel`
 --
 
-INSERT INTO `mapel` (`mapel_id`, `mapel`, `kelas_id`) VALUES
-(8, 'Matematika', 1),
-(9, 'Bahasa Indonesia', 1),
-(10, 'IPA', 1),
-(11, 'IPS', 1),
-(16, 'Matematika', 2),
-(17, 'Bahasa Indonesia', 2),
-(18, 'Bahasa Inggris', 2),
-(19, 'IPA', 2);
+INSERT INTO `mapel` (`mapel_id`, `kode`, `mapel`, `kelas_id`) VALUES
+(8, '', 'Matematika', 1),
+(9, '', 'Bahasa Indonesia', 1),
+(10, '', 'IPA', 1),
+(11, '', 'IPS', 1),
+(16, '', 'Matematika', 2),
+(17, '', 'Bahasa Indonesia', 2),
+(18, 'BHSI03', 'Bahasa Inggris', 2),
+(20, 'SMP03IPA', 'IPA', 2);
 
 -- --------------------------------------------------------
 
@@ -451,7 +452,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `mapel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `mengampu`
 --
