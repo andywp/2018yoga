@@ -10,18 +10,19 @@ if(isset($_POST['simpan'])){
 		$error=alert('error','Pengajar sudah ada dengan hari dan jam ');
 	}else{
 		
-	echo	$query="insert into detail_jadwal set id_mengampu='".$_POST['id_mengampu']."' , hari='".$_POST['hari']."', jam='".$_POST['jam']."', ruangan='".$_POST['ruangan']."',jadwal_id='".$_POST['jadwal_id']."',program='".$_POST['program']."' ";
-		$simpan=$system->db->execute($query);
-		if($simpan){
-			$error=alert('success','Data berhasil ditambahkan');
+		$cek=$system->db->getOne("select detail_id from detail_jadwal where hari='".$_POST['hari']."' and jam='".$_POST['jam']."' and program='".$_POST['program']."' ");
+		if($cek){
+			$error=alert('error','Hari dan Jam sudah digunakan jadwal lain');
 		}else{
-			$error=alert('error','Gagal disimpan');
+			$query="insert into detail_jadwal set id_mengampu='".$_POST['id_mengampu']."' , hari='".$_POST['hari']."', jam='".$_POST['jam']."', ruangan='".$_POST['ruangan']."',jadwal_id='".$_POST['jadwal_id']."',program='".$_POST['program']."' ";
+			$simpan=$system->db->execute($query);
+			if($simpan){
+				$error=alert('success','Data berhasil ditambahkan');
+			}else{
+				$error=alert('error','Gagal disimpan');
+			}
 		}
-	}
-		
-	
-	
-	
+	}	
 }
 
 

@@ -1,19 +1,36 @@
 <?php 
 include'header.php'; 
 $error='';
+$pesan='';
 ?>
 <div class="content-wrapper">
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="insert into kelas set kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' ";
-	$simpan=$system->db->execute($query);
-	if($simpan){
-		$error=alert('success','Data berhasil ditambah');
-		$_POST=array();
-	}else{
-		$error=alert('error','Gagal menyimpan');
-	}
+		if(empty($_POST['kelas'])){
+			$pesan.='<li>Nama Kelas tidak boleh kosong</li>';
+		}
+		if(empty($_POST['jenjang'])){
+			$pesan.='<li>Pilih jenjang</li>';
+		}
+		$cek=$system->db->getOne("select kelas_id from kelas where kelas='".$_POST['kelas']."' and jenjang='".$_POST['jenjang']."'  ");
+		if($cek){
+			$pesan.='<li>Nama Kelas tidak Boleh sama</li>';
+		}
+
+		
+		if(!empty($pesan)){
+			$error=alert('error','<ul>'.$pesan.'</ul>');	
+		}else{
+			$query="insert into kelas set kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' ";
+			$simpan=$system->db->execute($query);
+			if($simpan){
+				$error=alert('success','Data berhasil ditambah');
+				$_POST=array();
+			}else{
+				$error=alert('error','Gagal menyimpan');
+			}
+		}
 	
 }
 
