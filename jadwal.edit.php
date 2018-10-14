@@ -94,7 +94,7 @@ foreach($kelas as $r){
 						<option value="Genap" <?= ($data['semester']=='Genap')?'selected':''; ?> >Genap</option>
 						</select>
 					</div>
-					
+					 
 					<div class="form-group">
 						<label>Jenis Kelas</label>
 						<select name="type" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>

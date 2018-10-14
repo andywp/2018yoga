@@ -43,7 +43,7 @@ if(isset($_POST['status'])){
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
-	 
+	  
     </section>
 	<?php
 		$dataKelas=$system->db->getAll("select * from  jadwal as a , kelas as b where a.kelas_id=b.kelas_id  order by jadwal_id DESC");

@@ -1,4 +1,4 @@
-<?php 
+<?php  
 include'header.php'; 
 $error='';
 /*hapus data kelas */

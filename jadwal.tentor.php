@@ -145,7 +145,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 	
 	?>
 	
-	
+	 
 	
     <!-- Main content -->
     <section class="content">

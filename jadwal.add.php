@@ -1,7 +1,7 @@
 <?php 
 include'header.php'; 
 $error='';
-
+ 
 ?>
 <div class="content-wrapper">
 

@@ -33,7 +33,7 @@ if(isset($_POST['tambah'])){
 	} 
 		
 }
-
+ 
 
 $optionMapel='';
 $mapel=$system->db->getAll("select * from  jadwal as a , kelas as b where a.kelas_id=b.kelas_id");

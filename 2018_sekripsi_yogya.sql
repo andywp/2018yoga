@@ -476,4 +476,4 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tentor`
 --
 ALTER TABLE `tentor`
-  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `tentor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7; 
