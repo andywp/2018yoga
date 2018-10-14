@@ -7,7 +7,7 @@ $error='';
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="insert into  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."',biaya='".$_POST['biaya']."' ";
+	$query="insert into  jadwal set kelas_id='".$_POST['kelas_id']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."',paket='".$_POST['paket']."',type='".$_POST['type']."', biaya='".$_POST['biaya']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');
@@ -19,6 +19,14 @@ if(isset($_POST['simpan'])){
 }
 
 
+
+
+$kelas=$system->db->getAll('select * from kelas GROUP by jenjang');
+/* adodb_pr($kelas); */
+$opttKelas='';
+foreach($kelas as $r){
+	$opttKelas.='<option value="'.$r['kelas_id'].'" >'.$r['kelas'].' ( '.$r['jenjang'].' )</option>';
+}
 
 
 ?>
@@ -48,12 +56,14 @@ if(isset($_POST['simpan'])){
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
 					<div class="form-group">
-						<label>Jenjang</label>
-						  <select name="jenjang" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+						<label>Nama Jadwal</label>
+						<input type="text" class="form-control" name="paket" required>
+					</div>
+					<div class="form-group">
+						<label>Kelas</label>
+						  <select name="kelas_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 							<option value="" >Pilih</option>
-							<option value="SD" >SD</option>
-							<option value="SMP" >SMP</option>
-							<option value="SMA" >SMA</option>
+							<?= $opttKelas ?>
 						  </select>
 					</div>
 					<div class="form-group">
@@ -79,7 +89,29 @@ if(isset($_POST['simpan'])){
 						<option value="Genap" >Genap</option>
 						</select>
 					</div>
-
+				<!--	<div class="form-group">
+						<label>Kelas</label>
+						<select name="kelas" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+						<option value="" >Pilih Kelas</option>
+						<option value="A" >A</option>
+						<option value="B" >B</option>
+						<option value="C" >C</option>
+						<option value="D" >D</option>
+						<option value="E" >E</option>
+						</select>
+					</div> -->
+					<div class="form-group">
+						<label>Jenis Kelas</label>
+						<select name="type" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+						<option value="" >Pilih</option>
+						<option value="private" >Private</option>
+						<option value="kelas">Kelas</option>
+						</select>
+					</div>
+					<div class="form-group">
+					  <label>Biaya Per Bulan</label>
+					  <input type="text" class="form-control" name="biaya"  required>
+					</div>
 						  <div class="box-footer">
 							<button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
 						  </div>

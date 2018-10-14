@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Okt 2018 pada 03.17
+-- Generation Time: 14 Okt 2018 pada 17.17
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -137,10 +137,12 @@ INSERT INTO `detail_pebayaran` (`detail_pebayaran_id`, `pembayaran_id`, `bulan`,
 
 CREATE TABLE `jadwal` (
   `jadwal_id` int(11) NOT NULL,
-  `jenjang` enum('SD','SMP','SMA') NOT NULL,
+  `kelas_id` int(11) NOT NULL,
   `tahunajaran` varchar(9) NOT NULL,
   `semester` enum('Ganjil','Genap') NOT NULL,
   `biaya` varchar(15) NOT NULL,
+  `paket` varchar(30) NOT NULL,
+  `type` enum('private','kelas') NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -148,9 +150,11 @@ CREATE TABLE `jadwal` (
 -- Dumping data untuk tabel `jadwal`
 --
 
-INSERT INTO `jadwal` (`jadwal_id`, `jenjang`, `tahunajaran`, `semester`, `biaya`, `status`) VALUES
-(1, 'SD', '2018/2019', 'Ganjil', '250000', 1),
-(2, 'SMP', '2018/2019', 'Ganjil', '200000', 1);
+INSERT INTO `jadwal` (`jadwal_id`, `kelas_id`, `tahunajaran`, `semester`, `biaya`, `paket`, `type`, `status`) VALUES
+(1, 1, '2018/2019', 'Ganjil', '250000', '0', 'kelas', 1),
+(2, 2, '2018/2019', 'Ganjil', '200000', 'A', 'kelas', 1),
+(3, 1, '2017/2018', 'Ganjil', '300000', 'A', 'private', 0),
+(4, 1, '2017/2018', 'Ganjil', '300000', 'paket 1', 'private', 0);
 
 -- --------------------------------------------------------
 
@@ -437,7 +441,7 @@ ALTER TABLE `detail_pebayaran`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `jadwal_siswa`
 --

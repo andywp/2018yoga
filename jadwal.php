@@ -46,7 +46,7 @@ if(isset($_POST['status'])){
 	 
     </section>
 	<?php
-		$dataKelas=$system->db->getAll("select * from  jadwal  order by jadwal_id DESC");
+		$dataKelas=$system->db->getAll("select * from  jadwal as a , kelas as b where a.kelas_id=b.kelas_id  order by jadwal_id DESC");
 		$tabel='';
 		$no=1;
 		foreach($dataKelas as $r){
@@ -59,7 +59,7 @@ if(isset($_POST['status'])){
 						<td>'.$no.'</td>
 						<td>'.$r['tahunajaran'].'</td>
 						<td>'.$r['semester'].'</td>
-						<td>'.$r['jenjang'].'</td>
+						<td>'.$r['kelas'].' ( '.$r['jenjang'].' ) </td>
 						<td width="50" ><a class="btn btn-info btn-sm" href="jadwal.tentor.php?id='.$r['jadwal_id'].'">Jadwal Tentor</a></td>
 						<td width="150" >
 							<form  role="form" method="POST" enctype="multipart/form-data" action="">

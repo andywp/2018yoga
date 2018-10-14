@@ -3,7 +3,7 @@ include'header.php';
 $error='';
 /*hapus data kelas */
 
-$jadwal=$system->db->getRow("select * from jadwal where jadwal_id='".$_GET['id']."'");
+$jadwal=$system->db->getRow("select * from  jadwal as a , kelas as b where a.kelas_id=b.kelas_id and jadwal_id='".$_GET['id']."'");
 if(isset($_POST['simpan'])){
 	$cek=$system->db->getOne("select detail_id from mengampu where id_mengampu='".$_POST['id_mengampu']."' and hari='".$_POST['hari']."' and jam='".$_POST['jam']."'");
 	if($cek){
@@ -58,7 +58,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 	<?php
 
 		$optionMapel='';
-		$kelas=$system->db->getAll("select a.id_mengampu, b.kode,mapel, c.kelas,jenjang ,d.tentor_nama from  mengampu as a, mapel as b, kelas as c , tentor as d where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id=d.tentor_id and c.jenjang='".$jadwal['jenjang']."'");
+		$kelas=$system->db->getAll("select a.id_mengampu, b.kode,mapel, c.kelas,jenjang ,d.tentor_nama from  mengampu as a, mapel as b, kelas as c , tentor as d where a.mapel_id=b.mapel_id and b.kelas_id=c.kelas_id and a.tentor_id=d.tentor_id and c.kelas_id='".$jadwal['kelas_id']."'");
 		/* adodb_pr($kelas); */
 		foreach($kelas as $r){
 			$optionMapel.='<option value="'.$r['id_mengampu'].'">'.$r['mapel'].' ( '.$r['kelas'].' - '.$r['jenjang'].' / '.$r['tentor_nama'].' )</option>';
@@ -166,7 +166,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<td width="80">Jadwal </td><td>: <?= $jadwal['jenjang'] ?></td>
+							<td width="80">Jadwal </td><td>: <?= $jadwal['paket'] ?> <?= $jadwal['kelas'] ?> <?= $jadwal['jenjang'] ?></td>
 						</tr>
 						<tr>
 							<td>Tahunajaran </td><td>: <?= $jadwal['tahunajaran'] ?></td>
@@ -240,7 +240,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 					<option value="E" >E</option>
 				  </select>
 			</div>
-			<div class="form-group">
+		<!--	<div class="form-group">
 				<label>Program</label>
 				  <select name="program" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 				  <option value="" >Pilih</option>
@@ -248,7 +248,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id_hapus'] !='' ){
 				  <option value="Privat" >Privat</option>
 					
 				  </select>
-			</div>
+			</div> -->
         </div>
         <div class="modal-footer">
 			<input type="hidden" name="jadwal_id" value="<?= $jadwal['jadwal_id'] ?>">

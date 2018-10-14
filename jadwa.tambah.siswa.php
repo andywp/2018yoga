@@ -36,12 +36,12 @@ if(isset($_POST['tambah'])){
 
 
 $optionMapel='';
-$mapel=$system->db->getAll("select * from jadwal where status=1 order by jadwal_id DESC");
+$mapel=$system->db->getAll("select * from  jadwal as a , kelas as b where a.kelas_id=b.kelas_id");
 /* adodb_pr($mapel);  */
 foreach($mapel as $data){
 	
 	 $selected=($data['jadwal_id']==@$_GET['id_jadwal'])?'selected':''; 
-	$optionMapel.='<option value="'.$data['jadwal_id'].'" '. $selected.'  >'.$data['jenjang'].' ( '.$data['tahunajaran'].' - '.$data['semester'].'  )</option>';
+	$optionMapel.='<option value="'.$data['jadwal_id'].'" '. $selected.'  >'.$data['kelas'].' '.$data['jenjang'].'  ( '.$data['tahunajaran'].' - '.$data['semester'].'  )</option>';
 }
 
 ?>

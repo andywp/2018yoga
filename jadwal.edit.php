@@ -9,7 +9,7 @@ $data=$system->db->getRow("select * from jadwal where jadwal_id='".$_GET['id']."
 
 <?php
 if(isset($_POST['simpan'])){	
-	$query="update  jadwal set jenjang='".$_POST['jenjang']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."',biaya='".$_POST['biaya']."' where jadwal_id='".$_GET['id']."' ";
+	$query="update  jadwal set kelas_id='".$_POST['kelas_id']."' ,tahunajaran='".$_POST['tahunajaran']."' ,semester='".$_POST['semester']."', paket='".$_POST['paket']."',type='".$_POST['type']."', biaya='".$_POST['biaya']."' where jadwal_id='".$_GET['id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil DIUBAH');
@@ -20,6 +20,14 @@ if(isset($_POST['simpan'])){
 	
 }
 
+$kelas=$system->db->getAll('select * from kelas GROUP by jenjang');
+/* adodb_pr($kelas); */
+$opttKelas='';
+foreach($kelas as $r){
+	
+	$selected=($data['kelas_id']==$r['kelas_id'])?'selected':'';
+	$opttKelas.='<option value="'.$r['kelas_id'].'" '.$selected.' >'.$r['kelas'].' ( '.$r['jenjang'].' )</option>';
+}
 
 
 
@@ -50,14 +58,17 @@ if(isset($_POST['simpan'])){
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
 					<div class="form-group">
-						<label>Jenjang</label>
-						  <select name="jenjang" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+						<label>Nama Jadwal</label>
+						<input type="text" class="form-control" name="paket" value="<?= $data['paket'] ?>" required>
+					</div>
+					<div class="form-group">
+						<label>Kelas</label>
+						  <select name="kelas_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 							<option value="" >Pilih</option>
-							<option value="SD" <?= ($data['jenjang']=='SD')?'selected':''; ?> >SD</option>
-							<option value="SMP" <?= ($data['jenjang']=='SMP')?'selected':''; ?>>SMP</option>
-							<option value="SMA"  <?= ($data['jenjang']=='SMA')?'selected':''; ?>>SMA</option>
+							<?= $opttKelas ?>
 						  </select>
 					</div>
+					
 					<div class="form-group">
 						<label>Tahunajaran</label>
 						<select name="tahunajaran" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
@@ -81,6 +92,15 @@ if(isset($_POST['simpan'])){
 						<option value="" >Pilih</option>
 						<option value="Ganjil" <?= ($data['semester']=='Ganjil')?'selected':''; ?> >Ganjil</option>
 						<option value="Genap" <?= ($data['semester']=='Genap')?'selected':''; ?> >Genap</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label>Jenis Kelas</label>
+						<select name="type" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+						<option value="" >Pilih</option>
+						<option value="private" <?= ($data['type']=='private')?'selected':''; ?> >Private</option>
+						<option value="kelas" <?= ($data['type']=='kelas')?'selected':''; ?> >Kelas</option>
 						</select>
 					</div>
 					<div class="form-group">
