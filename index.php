@@ -86,6 +86,13 @@ if (isset($_POST["login"])) {
 
 if(isset($_POST['simpan'])){
 	
+	
+	$cek=$system->db->getOne("SELECT max(kode)  FROM siswa WHERE kode LIKE '".substr(date('Y'),2,2)."%'");
+	$NoUrut = (int) substr($cek, 2, 4);
+	$NoUrut++;
+ 	$NewID = substr(date('Y'),2,2) .sprintf('%04s', $NoUrut);
+	$_POST['kode']=$NewID;
+	
 	/* adodb_pr($_POST); */
 	$fild='';
 	foreach($_POST as $k=>$v){
@@ -96,6 +103,9 @@ if(isset($_POST['simpan'])){
 		$fild.=$k.'="'.$v.'",';
 		}
 	}
+	
+	
+	
 	$query="insert into siswa set ".$fild."id_siswa=''";
 	$simpan=$system->db->execute($query);
 	if($simpan){

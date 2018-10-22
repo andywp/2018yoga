@@ -73,6 +73,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
                 <tbody>
 				<tr>
                   <th width="40" >#</th>
+				  <th>Kode</th>
                   <th>Mapel</th>
                   <th>Kelas</th>
                   <th>Jenjang</th>

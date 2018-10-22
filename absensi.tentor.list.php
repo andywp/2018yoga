@@ -59,7 +59,7 @@ if(isset($_POST['status'])){
 						<td>'.$no.'</td>
 						<td>'.$r['tahunajaran'].'</td>
 						<td>'.$r['semester'].'</td>
-						<td>'.$r['jenjang'].'</td>			
+	
 						<td width="50" ><a href="absensi.tentor.input.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success">Absensi</a></td>
 					</tr>	';
 			$no++;
@@ -88,7 +88,6 @@ if(isset($_POST['status'])){
                   <th width="40" >#</th>
                   <th>Tahunajaran</th>
                   <th>Semester</th>
-                  <th>Jenjang</th>
                   <th class="text-center" >Ation</th>
                 </tr>
                 <?= $tabel ?>

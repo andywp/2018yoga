@@ -22,7 +22,32 @@ if(isset($_POST['simpan'])){
 		if(!empty($pesan)){
 			$error=alert('error','<ul>'.$pesan.'</ul>');	
 		}else{
-			$query="insert into kelas set kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' ";
+			
+			$jenjang=$_POST['jenjang'];
+			
+			
+			if($jenjang=='SMP'){
+				$karakter=5;
+			}
+			if($jenjang=='SMA'){
+				$karakter=5;
+			}
+			if($jenjang=='SD'){
+				$karakter=5;
+				@$jenjang=$Jenjang.'0';
+			}
+			
+			
+			
+			$cek=$system->db->getOne("SELECT max(kode)  FROM kelas WHERE kode LIKE '".substr(date('Y'),$karakter,4)."%'");
+			$NoUrut = (int) substr($cek, $karakter, 4);
+			$NoUrut++;
+			$NewID = 'K'.substr(date('Y'),2,2).$jenjang.sprintf('%04s', $NoUrut);
+			$_POST['kode']=$NewID;
+			
+			
+			
+			$query="insert into kelas set kode='".$_POST['kode']."', kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' ";
 			$simpan=$system->db->execute($query);
 			if($simpan){
 				$error=alert('success','Data berhasil ditambah');

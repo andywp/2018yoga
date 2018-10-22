@@ -6,7 +6,27 @@ $error='';
 <div class="content-wrapper">
 
 <?php
-if(isset($_POST['simpan'])){	
+if(isset($_POST['simpan'])){
+	
+	$jenjang=$system->db->getOne("select jenjang from kelas where kelas_id='".$_POST['kelas_id']."'");
+	if($jenjang=='SMP'){
+		$karakter=5;
+	}
+	if($jenjang=='SMA'){
+		$karakter=5;
+	}
+	if($jenjang=='SD'){
+		$karakter=4;
+		/* $jenjang=$Jenjang.'0'; */
+	}
+	
+	$cek=$system->db->getOne("SELECT max(kode)  FROM mapel WHERE kode LIKE '".substr(date('Y'),$karakter,4)."%'");
+	$NoUrut = (int) substr($cek, $karakter, 4);
+	$NoUrut++;
+	$NewID = 'MP'.$jenjang.sprintf('%04s', $NoUrut);
+	$_POST['kode']=$NewID;
+	
+	
 	$query="insert into mapel set kode='".$_POST['kode']."', mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
@@ -52,10 +72,6 @@ foreach($kelas as $r){
 				<?=  @$error ?>
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
-					<div class="form-group">
-					  <label>Kode</label>
-					  <input type="text" max="8" min="8" class="form-control" name="kode"  required>
-					</div>
 					<div class="form-group">
 					  <label>Matapelajaran</label>
 					  <input type="text" class="form-control" name="mapel"  required>

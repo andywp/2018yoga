@@ -5,9 +5,18 @@ $error='';
 <div class="content-wrapper">
 
 <?php
+	
 if(isset($_POST['simpan'])){	
+	$cek=$system->db->getOne("SELECT max(kode)  FROM tentor WHERE kode LIKE '".substr(date('Y'),1,1)."%'");
+	$NoUrut = (int) substr($cek, 2, 4);
+	$NoUrut++;
+ 	$NewID = 'T'.sprintf('%04s', $NoUrut);
+	$_POST['kode']=$NewID;
 
- 	$query="insert into tentor set tentor_nama='".htmlentities($_POST['tentor_nama'])."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,tentor_username='".$_POST['tentor_username']."',tentor_password='".md5($_POST['tentor_password'])."' ";
+	
+
+
+ 	$query="insert into tentor set kode='".$_POST['kode']."', tentor_nama='".htmlentities($_POST['tentor_nama'])."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,tentor_username='".$_POST['tentor_username']."',tentor_password='".md5($_POST['tentor_password'])."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');

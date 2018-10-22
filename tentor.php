@@ -43,6 +43,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
 		foreach($dataKelas as $r){
 			$tabel.='<tr>
 						<td>'.$no.'</td>
+						<td>'.$r['kode'].'</td>
 						<td>'.$r['tentor_nama'].'</td>
 						<td>'.$r['tentor_alamat'].'</td>
 						<td>'.$r['tentor_telepon'].'</td>
@@ -76,6 +77,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
                 <tbody>
 				<tr>
                   <th width="40" >#</th>
+                  <th>Kode</th>
                   <th>Tentor</th>
                   <th>Alamat</th>
                   <th>Telepon</th>
