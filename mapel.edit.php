@@ -6,8 +6,36 @@ $error='';
 <div class="content-wrapper">
 
 <?php
-if(isset($_POST['simpan'])){	
-	$query="update  mapel set kode='".$_POST['kode']."',  mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' where mapel_id='".$_POST['mapel_id']."' ";
+if(isset($_POST['simpan'])){
+	$addQuery='';
+	$kode=$system->db->getOne('select kode from mapel where mapel_id="'.$_POST['mapel_id'].'" ');
+	if(empty($kode)){
+		$jenjang=$system->db->getOne("select jenjang from kelas where kelas_id='".$_POST['kelas_id']."'");
+		if($jenjang=='SMP'){
+			$karakter=5;
+		}
+		if($jenjang=='SMA'){
+			$karakter=5;
+		}
+		if($jenjang=='SD'){
+			$karakter=4;
+			/* $jenjang=$Jenjang.'0'; */
+		}
+		
+		$cek=$system->db->getOne("SELECT max(kode)  FROM mapel WHERE kode LIKE '".substr(date('Y'),$karakter,4)."%'");
+		$NoUrut = (int) substr($cek, $karakter, 4);
+		$NoUrut++;
+		$NewID = 'MP'.$jenjang.sprintf('%04s', $NoUrut);
+		$_POST['kode']=$NewID;
+		$addQuery.=' kode="'.$_POST['kode'].'" , ';
+		
+	}
+
+
+
+
+	
+	$query="update  mapel set ".$addQuery."  mapel='".$_POST['mapel']."' , kelas_id='".$_POST['kelas_id']."' where mapel_id='".$_POST['mapel_id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil diupdate');
@@ -15,6 +43,12 @@ if(isset($_POST['simpan'])){
 	}else{
 		$error=alert('error','Gagal menyimpan');
 	}
+	
+	
+	
+	
+	
+	
 	
 }
 
@@ -39,16 +73,15 @@ foreach($kelas as $data){
 ?>
 
 
-	  <section class="content-header">
-		  <h1>
-			Form Input Matapelajaran
-		  </h1>
-		  <ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		  </ol>
-	 
-    </section>
+<section class="content-header">
+  <h1>
+	Form Input Matapelajaran
+  </h1>
+  <ol class="breadcrumb">
+	<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+	<li class="active">Dashboard</li>
+  </ol>
+</section>
 
 
     <section class="content">
@@ -62,10 +95,6 @@ foreach($kelas as $data){
 				<?=  @$error ?>
 				<form  role="form" method="POST" enctype="multipart/form-data" action="">
 				<div class="box-body">
-					<div class="form-group">
-					  <label>Kode</label>
-					  <input type="text" max="8" min="8" class="form-control" name="kode" value="<?= $r['kode'] ?>"  required>
-					</div>
 					<div class="form-group">
 					  <label>Matapelajaran</label>
 					  <input type="text" class="form-control" name="mapel" value="<?= $r['mapel'] ?>"  required>

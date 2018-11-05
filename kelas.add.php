@@ -24,8 +24,6 @@ if(isset($_POST['simpan'])){
 		}else{
 			
 			$jenjang=$_POST['jenjang'];
-			
-			
 			if($jenjang=='SMP'){
 				$karakter=5;
 			}

@@ -7,7 +7,7 @@ $error='';
 <?php
 	
 if(isset($_POST['simpan'])){	
-	$cek=$system->db->getOne("SELECT max(kode)  FROM tentor WHERE kode LIKE '".substr(date('Y'),1,1)."%'");
+	$cek=$system->db->getOne("SELECT max(kode)  FROM tentor ");
 	$NoUrut = (int) substr($cek, 2, 4);
 	$NoUrut++;
  	$NewID = 'T'.sprintf('%04s', $NoUrut);

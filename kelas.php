@@ -42,6 +42,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
 		foreach($dataKelas as $r){
 			$tabel.='<tr>
 						<td>'.$no.'</td>
+						<td>'.$r['kode'].'</td>
 						<td>'.$r['kelas'].'</td>
 						<td>'.$r['jenjang'].'</td>
 						<td width="50" ><a href="kelas.edit.html?id='.$r['kelas_id'].'" class="btn btn-block btn-success"><i class="fa fa-edit"></i></a></td>
@@ -71,6 +72,7 @@ if(@$_GET['act']=='hapus' && @$_GET['id'] !='' ){
                 <tbody>
 				<tr>
                   <th width="40" >#</th>
+				  <th>Kode</th>
                   <th>Kelas</th>
                   <th>Jenjang</th>
                   <th colspan="2" class="text-center" >Ation</th>

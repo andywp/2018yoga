@@ -30,7 +30,7 @@ $error='';
 						<td>'.$no.'</td>
 						<td>'.$r['tahunajaran'].'</td>
 						<td>'.$r['semester'].'</td>
-						<td>'.$r['jenjang'].'</td>
+						<td>'.$r['paket'].'</td>
 						<td width="50" ><a href="pembayaran.listing.html?id='.$r['jadwal_id'].'" class="btn btn-block btn-success">Data Pembayaran</a></td>
 					</tr>	';
 			$no++;
@@ -75,7 +75,7 @@ $error='';
                   <th width="40" >#</th>
                   <th>Tahunajaran</th>
                   <th>Semester</th>
-                  <th>Jenjang</th>
+                  <th>Paket</th>
                   <th colspan="3" class="text-center" >Ation</th>
                 </tr>
                 <?= $tabel ?>

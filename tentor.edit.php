@@ -5,9 +5,24 @@ $error='';
 <div class="content-wrapper">
 
 <?php
+/* /* echo "SELECT max(kode)  FROM tentor  "; */ 
 if(isset($_POST['simpan'])){	
-
- 	$query="update tentor set tentor_nama='".$_POST['tentor_nama']."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,mapel_id='".$_POST['mapel_id']."',tentor_username='".$_POST['tentor_username']."' where tentor_id='".$_POST['tentor_id']."' ";
+	$addQuery='';
+	$kode=$system->db->getOne('select kode from tentor where mapel_id="'.$_POST['tentor_id'].'" ');
+	if(empty($kode)){
+		
+		$cek=$system->db->getOne("SELECT max(kode)  FROM tentor ");
+		$NoUrut = (int) substr($cek, 2, 4);
+		$NoUrut++;
+		$NewID = 'T'.sprintf('%04s', $NoUrut);
+		$_POST['kode']=$NewID;
+		$addQuery.=' kode="'.$_POST['kode'].'" , ';
+	}
+	
+	
+	
+	
+ 	$query="update tentor set ".$addQuery." tentor_nama='".$_POST['tentor_nama']."' , tentor_alamat='".$_POST['tentor_alamat']."',tentor_telepon='".$_POST['tentor_telepon']."' ,tentor_username='".$_POST['tentor_username']."' where tentor_id='".$_POST['tentor_id']."' ";
 	$simpan=$system->db->execute($query);
 	if($simpan){
 		$error=alert('success','Data berhasil ditambah');

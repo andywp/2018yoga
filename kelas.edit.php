@@ -5,8 +5,7 @@ $error='';
 <div class="content-wrapper">
 
 <?php
-if(isset($_POST['simpan'])){	
-
+if(isset($_POST['simpan'])){
 	if(empty($_POST['kelas'])){
 		$pesan.='<li>Nama Kelas tidak boleh kosong</li>';
 	}
@@ -21,7 +20,37 @@ if(isset($_POST['simpan'])){
 	if(!empty($pesan)){
 			$error=alert('error','<ul>'.$pesan.'</ul>');	
 	}else{
-		$query="update  kelas set kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' where kelas_id='".$_POST['kelas_id']."' ";
+		$kode=$system->db->getOne("select kode from kelas where kelas_id='".$_POST['kelas_id']."'");
+		
+		$addQuery='';
+		if(empty($kode)){
+			$jenjang=$_POST['jenjang'];
+			if($jenjang=='SMP'){
+				$karakter=5;
+			}
+			if($jenjang=='SMA'){
+				$karakter=5;
+			}
+			if($jenjang=='SD'){
+				$karakter=5;
+				@$jenjang=$Jenjang.'0';
+			}
+			
+			$cek=$system->db->getOne("SELECT max(kode)  FROM kelas WHERE kode LIKE '".substr(date('Y'),$karakter,4)."%'");
+			$NoUrut = (int) substr($cek, $karakter, 4);
+			$NoUrut++;
+			$NewID = 'K'.substr(date('Y'),2,2).$jenjang.sprintf('%04s', $NoUrut);
+			$_POST['kode']=$NewID;
+			
+			$addQuery.=' kode="'.$_POST['kode'].'", ';
+			
+		}
+		
+		
+		
+		
+		
+		$query="update  kelas set ".$addQuery." kelas='".$_POST['kelas']."' , jenjang='".$_POST['jenjang']."' where kelas_id='".$_POST['kelas_id']."' ";
 		$simpan=$system->db->execute($query);
 		if($simpan){
 			$error=alert('success','Data berhasil diupdate');
